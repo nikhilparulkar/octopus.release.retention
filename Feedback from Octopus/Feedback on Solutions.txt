@@ -1,0 +1,17 @@
+The original data is kept as is and intermediate structures are used to hold results. This resulted in a clear functional handling of the data.
++ There is logging showing how the algorithm obtained its result.
+* Set based operations are used, however the complexity of the code lead to an algorithm that is not simple to understand.
+* The algorithm keeps the top N most recently deployed releases, but does not account for re-deployments.
+* Some edge cases are covered.
+- The variable names are not very descriptive, making it hard to follow.
+- The code runs into many lines in places, breaking it up some more would help readability.
+- Some strange code structure: DateTime.Compare(element.DeployedAt, dep.DeployedAt) < 0 is the same as (element.DeployedAt < dep.DeployedAt). Using the longer and more complex solution implies lack of understanding
+- There is a bug in the DateTime comparison code; if a release is deployed twice it picks the earliest time instead of the latest, which would lead to incorrect retention
+- The data is loaded within the main algorithm, making it hard to test.
+- Tests load data from directories of JSON files rather than declaring the input data in the code itself. This makes it very hard to diagnose test failures and offers no context (what is "TestSet3" checking and why is it important?)
+- The design of the core algorithm required mocks for testing. If the I/O and core algorithm concerns are separated out the mocks would not be required.
+- The test names did not describe the scenario that is being tested.
+- Some tests only assert the count of items returned, not the contents. This may cause the test to pass even though the result is incorrect. It also makes it hard to understand test failures.
+- The test verifies lists via multiple assertions, which do not clearly identify the cause of a failure. Consider using collection assertions like Fluent Assertions (https://fluentassertions.com/collections/).
+- The test assertions do not clearly identify the cause of a failure.
+ 

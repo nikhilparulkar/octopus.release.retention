@@ -1,6 +1,6 @@
-﻿# JupyterGoldenRosemary
 
- ## Release Retention Implementation
+
+ # Release Retention Implementation
 
  This project provides a solution for "implementing a release retention rule". 
 
